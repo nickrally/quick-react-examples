@@ -1,24 +1,14 @@
 import React, { useState } from 'react';
 function App() {
-  const [name, setName] = useState(null);
-  const todos = [
-    'clean bathroom',
-    'wash shower curtain',
-    'remove stains'
-  ]
-  const handleChange = (e) => setName(e.target.value);
+  const [counter, setCounter] = useState(0);
+  const inc = () => setCounter(counter + 1);
+  const dec = () => setCounter(counter - 1)
   return (
     <div className="App">
-      <div>
-        <label>Name:</label>
-        <input type="text" onChange={handleChange} />
-        {
-          name && <p>Hello, {name}, your todos are:</p>
-        }
-        <div>
-          {todos.map(todo => <li>{todo}</li>)}
-        </div>
-      </div>
+      <h2>setState hook</h2>
+      <p>Counter: {counter}</p>
+      <button onClick={inc}>+1</button>
+      <button onClick={dec}>-1</button>
     </div>
   );
 }
