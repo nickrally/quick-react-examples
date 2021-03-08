@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React, { useState } from 'react';
 function App() {
+  const [name, setName] = useState(null);
+  const todos = [
+    'clean bathroom',
+    'wash shower curtain',
+    'remove stains'
+  ]
+  const handleChange = (e) => setName(e.target.value);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        <label>Name:</label>
+        <input type="text" onChange={handleChange} />
+        {
+          name && <p>Hello, {name}, your todos are:</p>
+        }
+        <div>
+          {todos.map(todo => <li>{todo}</li>)}
+        </div>
+      </div>
     </div>
   );
 }
