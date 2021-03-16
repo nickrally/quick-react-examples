@@ -1,26 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, createContext } from 'react';
+import Header from './Header';
+import Navigation from './Navigation';
+
+export const MyUserContext = createContext();
+
 function App() {
-  const [name, setName] = useState(null);
-  const todos = [
-    'clean bathroom',
-    'wash shower curtain',
-    'remove stains'
-  ]
-  const handleChange = (e) => setName(e.target.value);
+  const [username, setUsername] = useState(null);
+  const currentUser = {
+    username: username,
+    loginFn: (_username) => setUsername(_username),
+    logoutFn: () => setUsername(null)
+  }
   return (
-    <div className="App">
-      <div>
-        <label>Name:</label>
-        <input type="text" onChange={handleChange} />
-        {
-          name && <p>Hello, {name}, your todos are:</p>
-        }
-        <div>
-          {todos.map(todo => <li>{todo}</li>)}
-        </div>
-      </div>
-    </div>
-  );
+    <MyUserContext.Provider value={currentUser}>
+      <Header />
+      <Navigation />
+    </MyUserContext.Provider>
+  )
 }
 
 export default App;
