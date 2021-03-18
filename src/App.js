@@ -1,26 +1,29 @@
-import React, { useState } from 'react';
-function App() {
-  const [name, setName] = useState(null);
-  const todos = [
-    'clean bathroom',
-    'wash shower curtain',
-    'remove stains'
-  ]
-  const handleChange = (e) => setName(e.target.value);
-  return (
-    <div className="App">
+import React from 'react';
+const { useState, useRef, useEffect } = React; 
+
+const App = () => {
+    const [isEditing, setEditing] = useState(false);
+    const [ btnTxt, setBtnTxt ]  = useState('Edit');
+    const toggleEditing = () => {
+      setEditing(!isEditing);
+      setBtnTxt(isEditing ? 'Edit' : 'Submit')
+    };
+  
+    const inputRef = useRef(null);
+  
+    useEffect(() => {
+      if (isEditing) {
+        inputRef.current.focus();
+        inputRef.current.style.background = '#ddf'
+      }
+    }, [isEditing]);
+    
+    return (
       <div>
-        <label>Name:</label>
-        <input type="text" onChange={handleChange} />
-        {
-          name && <p>Hello, {name}, your todos are:</p>
-        }
-        <div>
-          {todos.map(todo => <li>{todo}</li>)}
-        </div>
+        {isEditing && <input ref={inputRef} />}
+        <button onClick={toggleEditing}>{btnTxt}</button>
       </div>
-    </div>
-  );
+    );
 }
 
 export default App;
